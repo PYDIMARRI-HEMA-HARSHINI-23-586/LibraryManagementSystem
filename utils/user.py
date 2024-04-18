@@ -14,7 +14,7 @@ class User:
         """
         Return a string representation of the User object.
         """
-        return f"Name: {self.name}, User ID: {self.user_id}"
+        return f"Name: {self.name}, UserID: {self.user_id}"
 
 class UserDatabase:
     def __init__(self):
@@ -35,13 +35,13 @@ class UserDatabase:
         """
         Retrieve all users from the database.
         """
-        if self._users:
-            print("List of Users:")
-            for user in self._users:
-                print(user)
-        else:
-            print("No users found in the system.")
-        return self._users
+        user_data = []
+        for user in self._users:
+            user_data.append({
+                "Name": user.name,
+                "UserID": user.user_id
+            })
+        return user_data
 
 # Global instance of UserDatabase
 user_database = UserDatabase()

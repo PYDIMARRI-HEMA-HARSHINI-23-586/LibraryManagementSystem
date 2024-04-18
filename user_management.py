@@ -15,4 +15,4 @@ class UserManager:
         """
         List all users in the system.
         """
-        user_database.get_users()
+        return user_database.get_users()
