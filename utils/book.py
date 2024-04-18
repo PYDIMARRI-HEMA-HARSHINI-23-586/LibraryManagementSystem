@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 class Book:
     def __init__(self, title: str, author: str, isbn: str):
         """
@@ -34,12 +36,21 @@ class BookDatabase:
         book = Book(title, author, isbn)
         self._books.append(book)
 
-    def list_books(self) -> None:
+    def list_books(self) -> List[Dict[str, str]]:
         """
-        Print details of all books in the database.
+        Return details of all books in the database.
+
+        Returns:
+            List[Dict[str, str]]: List of dictionaries containing details of all books in the database.
         """
+        books_data = []
         for book in self._books:
-            print(book)
+            books_data.append({
+                "title": book.title,
+                "author": book.author,
+                "isbn": book.isbn
+            })
+        return books_data
 
 # Global instance of BookDatabase
 book_database = BookDatabase()

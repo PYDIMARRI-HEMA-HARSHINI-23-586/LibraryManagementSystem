@@ -12,8 +12,8 @@ class BookManagement:
         """
         book_database.add_book(title, author, isbn)
 
-    def list_books(self) -> None:
+    def list_books(self):
         """
         List all books in the library.
         """
-        book_database.list_books()
+        return book_database.list_books()

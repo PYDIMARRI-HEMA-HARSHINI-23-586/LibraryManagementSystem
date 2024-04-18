@@ -1,11 +1,12 @@
 """
 Date: 18 April 2024
 Author: Pavan Kumar
-Project: Student library management system
+Project: library management system
 """
 from book_management import BookManagement
 from user_management import UserManager
 from checkout_management import CheckoutManagement  
+from utils.storage import Storage
 
 class LibraryManagementSystem:
     def __init__(self):
@@ -42,7 +43,8 @@ class LibraryManagementSystem:
                 self.book_manager.add_book(title, author, isbn)
                 print("Book added.")
             elif choice == '2':
-                self.book_manager.list_books()
+                print("List of books:")
+                print(self.book_manager.list_books())
             elif choice == '3':
                 name = input("Enter user name: ")
                 user_id = input("Enter user ID: ")
@@ -58,8 +60,16 @@ class LibraryManagementSystem:
                 break
             else:
                 print("Invalid choice, please try again.")
+        lib_data, users_data = self.book_manager.list_books(), self.user_manager.list_users()
+        return lib_data, users_data
 
 
 if __name__ == "__main__":
     library_system = LibraryManagementSystem()
-    library_system.run()
+    lib_data, users_data = library_system.run()
+    
+    # Create an instance of the Storage class
+    storage = Storage()
+    # Call the save_system_state method on the storage instance
+    storage.save_system_state(books=lib_data, users=users_data)
+
