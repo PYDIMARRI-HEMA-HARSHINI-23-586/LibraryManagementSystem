@@ -25,5 +25,14 @@ class CheckoutDatabase:
         checkout = Checkout(user_id, isbn)
         self._checkouts.append(checkout)
 
+    def get_checkouts(self) -> list:
+        """
+        Retrieve all book checkouts from the database.
+
+        Returns:
+            list: List of Checkout objects representing book checkouts.
+        """
+        return self._checkouts
+
 # Global instance of CheckoutDatabase
 checkout_database = CheckoutDatabase()

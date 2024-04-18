@@ -35,6 +35,12 @@ class UserDatabase:
         """
         Retrieve all users from the database.
         """
+        if self._users:
+            print("List of Users:")
+            for user in self._users:
+                print(user)
+        else:
+            print("No users found in the system.")
         return self._users
 
 # Global instance of UserDatabase
