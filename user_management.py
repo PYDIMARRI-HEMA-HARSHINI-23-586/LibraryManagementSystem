@@ -10,3 +10,9 @@ class UserManager:
             user_id (str): The ID of the user.
         """
         user_database.add_user(name, user_id)
+
+    def list_users(self) -> None:
+        """
+        List all users in the system.
+        """
+        user_database.get_users()

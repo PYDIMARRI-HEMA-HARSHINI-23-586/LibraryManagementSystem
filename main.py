@@ -3,15 +3,15 @@ Date: 18 April 2024
 Author: Pavan Kumar
 Project: Student library management system
 """
-from book_management import BookManagement  # Importing BookManagement class
+from book_management import BookManagement
 from user_management import UserManager
-from checkout_management import CheckoutManagement
+from checkout_management import CheckoutManagement  
 
 class LibraryManagementSystem:
     def __init__(self):
-        self.book_manager = BookManagement()  # Creating an instance of BookManagement
+        self.book_manager = BookManagement()
         self.user_manager = UserManager()
-        self.checkout_manager = CheckoutManagement()
+        self.checkout_manager = CheckoutManagement() 
 
     def display_main_menu(self) -> str:
         """
@@ -39,10 +39,10 @@ class LibraryManagementSystem:
                 title = input("Enter title: ")
                 author = input("Enter author: ")
                 isbn = input("Enter ISBN: ")
-                self.book_manager.add_book(title, author, isbn)  # Using BookManagement to add a book
+                self.book_manager.add_book(title, author, isbn)
                 print("Book added.")
             elif choice == '2':
-                self.book_manager.list_books()  # Using BookManagement to list books
+                self.book_manager.list_books()
             elif choice == '3':
                 name = input("Enter user name: ")
                 user_id = input("Enter user ID: ")
@@ -51,7 +51,7 @@ class LibraryManagementSystem:
             elif choice == '4':
                 user_id = input("Enter user ID: ")
                 isbn = input("Enter ISBN of the book to checkout: ")
-                self.checkout_manager.checkout_book(user_id, isbn)
+                self.checkout_manager.checkout_book(user_id, isbn)  # Using CheckoutManagement to checkout a book
                 print("Book checked out.")
             elif choice == '5':
                 print("Exiting.")
