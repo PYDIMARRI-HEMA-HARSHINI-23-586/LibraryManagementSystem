@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libutils package &mdash; libutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">libutils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-libutils.book">libutils.book module</a><ul>
+<li><a class="reference internal" href="#libutils.book.Book"><code class="docutils literal notranslate"><span class="pre">Book</span></code></a></li>
+<li><a class="reference internal" href="#libutils.book.BookDatabase"><code class="docutils literal notranslate"><span class="pre">BookDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#libutils.book.BookDatabase.add_book"><code class="docutils literal notranslate"><span class="pre">BookDatabase.add_book()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.book.BookDatabase.list_books"><code class="docutils literal notranslate"><span class="pre">BookDatabase.list_books()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-libutils.check">libutils.check module</a><ul>
+<li><a class="reference internal" href="#libutils.check.Checkout"><code class="docutils literal notranslate"><span class="pre">Checkout</span></code></a></li>
+<li><a class="reference internal" href="#libutils.check.CheckoutDatabase"><code class="docutils literal notranslate"><span class="pre">CheckoutDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#libutils.check.CheckoutDatabase.checkout_book"><code class="docutils literal notranslate"><span class="pre">CheckoutDatabase.checkout_book()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.check.CheckoutDatabase.get_checkouts"><code class="docutils literal notranslate"><span class="pre">CheckoutDatabase.get_checkouts()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-libutils.models">libutils.models module</a></li>
+<li><a class="reference internal" href="#module-libutils.storage">libutils.storage module</a><ul>
+<li><a class="reference internal" href="#libutils.storage.Storage"><code class="docutils literal notranslate"><span class="pre">Storage</span></code></a><ul>
+<li><a class="reference internal" href="#libutils.storage.Storage.books_exist"><code class="docutils literal notranslate"><span class="pre">Storage.books_exist()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.storage.Storage.load_data"><code class="docutils literal notranslate"><span class="pre">Storage.load_data()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.storage.Storage.save_data"><code class="docutils literal notranslate"><span class="pre">Storage.save_data()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.storage.Storage.save_system_state"><code class="docutils literal notranslate"><span class="pre">Storage.save_system_state()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.storage.Storage.users_exist"><code class="docutils literal notranslate"><span class="pre">Storage.users_exist()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-libutils.user">libutils.user module</a><ul>
+<li><a class="reference internal" href="#libutils.user.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
+<li><a class="reference internal" href="#libutils.user.UserDatabase"><code class="docutils literal notranslate"><span class="pre">UserDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#libutils.user.UserDatabase.add_user"><code class="docutils literal notranslate"><span class="pre">UserDatabase.add_user()</span></code></a></li>
+<li><a class="reference internal" href="#libutils.user.UserDatabase.get_users"><code class="docutils literal notranslate"><span class="pre">UserDatabase.get_users()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-libutils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">libutils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/libutils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="libutils-package">
+<h1>libutils package<a class="headerlink" href="#libutils-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-libutils.book">
+<span id="libutils-book-module"></span><h2>libutils.book module<a class="headerlink" href="#module-libutils.book" title="Link to this heading"></a></h2>
+<p>Module for managing books in the library.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.book.Book">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.book.</span></span><span class="sig-name descname"><span class="pre">Book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isbn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libutils/book.html#Book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.book.Book" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a book in the library.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.book.BookDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.book.</span></span><span class="sig-name descname"><span class="pre">BookDatabase</span></span><a class="reference internal" href="_modules/libutils/book.html#BookDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.book.BookDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a database of books.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.book.BookDatabase.add_book">
+<span class="sig-name descname"><span class="pre">add_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isbn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libutils/book.html#BookDatabase.add_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.book.BookDatabase.add_book" title="Link to this definition"></a></dt>
+<dd><p>Add a book to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – The title of the book.</p></li>
+<li><p><strong>author</strong> (<em>str</em>) – The author of the book.</p></li>
+<li><p><strong>isbn</strong> (<em>str</em>) – The ISBN of the book.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.book.BookDatabase.list_books">
+<span class="sig-name descname"><span class="pre">list_books</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libutils/book.html#BookDatabase.list_books"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.book.BookDatabase.list_books" title="Link to this definition"></a></dt>
+<dd><p>Return details of all books in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries containing details of all books in the database.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libutils.check">
+<span id="libutils-check-module"></span><h2>libutils.check module<a class="headerlink" href="#module-libutils.check" title="Link to this heading"></a></h2>
+<p>Module for checkout functionalities.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.check.Checkout">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.check.</span></span><span class="sig-name descname"><span class="pre">Checkout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isbn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libutils/check.html#Checkout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.check.Checkout" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a book checkout.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.check.CheckoutDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.check.</span></span><span class="sig-name descname"><span class="pre">CheckoutDatabase</span></span><a class="reference internal" href="_modules/libutils/check.html#CheckoutDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.check.CheckoutDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Database for managing book checkouts.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.check.CheckoutDatabase.checkout_book">
+<span class="sig-name descname"><span class="pre">checkout_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isbn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libutils/check.html#CheckoutDatabase.checkout_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.check.CheckoutDatabase.checkout_book" title="Link to this definition"></a></dt>
+<dd><p>Record a book checkout in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>str</em>) – The ID of the user checking out the book.</p></li>
+<li><p><strong>isbn</strong> (<em>str</em>) – The ISBN of the book being checked out.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.check.CheckoutDatabase.get_checkouts">
+<span class="sig-name descname"><span class="pre">get_checkouts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/libutils/check.html#CheckoutDatabase.get_checkouts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.check.CheckoutDatabase.get_checkouts" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all book checkouts from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of Checkout objects representing book checkouts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libutils.models">
+<span id="libutils-models-module"></span><h2>libutils.models module<a class="headerlink" href="#module-libutils.models" title="Link to this heading"></a></h2>
+</section>
+<section id="module-libutils.storage">
+<span id="libutils-storage-module"></span><h2>libutils.storage module<a class="headerlink" href="#module-libutils.storage" title="Link to this heading"></a></h2>
+<p>Module for managing storage of data in the library.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.storage.Storage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.storage.</span></span><span class="sig-name descname"><span class="pre">Storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'database'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libutils/storage.html#Storage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to manage data storage for a library management system using CSV files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.storage.Storage.books_exist">
+<span class="sig-name descname"><span class="pre">books_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/libutils/storage.html#Storage.books_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage.books_exist" title="Link to this definition"></a></dt>
+<dd><p>Check if the books.csv file exists in the database folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the file exists, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.storage.Storage.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libutils/storage.html#Storage.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage.load_data" title="Link to this definition"></a></dt>
+<dd><p>Load data from a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – Path to the CSV file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.storage.Storage.save_data">
+<span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldnames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'a'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libutils/storage.html#Storage.save_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage.save_data" title="Link to this definition"></a></dt>
+<dd><p>Save data to a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – List of dictionaries representing data.</p></li>
+<li><p><strong>filepath</strong> (<em>str</em>) – Path to the CSV file.</p></li>
+<li><p><strong>fieldnames</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Field names for the CSV file.</p></li>
+<li><p><strong>unique_key</strong> (<em>str</em>) – Unique key to check for duplicates.</p></li>
+<li><p><strong>current_time</strong> (<em>str</em>) – Current timestamp.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.storage.Storage.save_system_state">
+<span class="sig-name descname"><span class="pre">save_system_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">books</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">users</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libutils/storage.html#Storage.save_system_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage.save_system_state" title="Link to this definition"></a></dt>
+<dd><p>Save the current state of the library management system in CSV format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>books</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – List of dictionaries representing books.</p></li>
+<li><p><strong>users</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – List of dictionaries representing users.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.storage.Storage.users_exist">
+<span class="sig-name descname"><span class="pre">users_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/libutils/storage.html#Storage.users_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.storage.Storage.users_exist" title="Link to this definition"></a></dt>
+<dd><p>Check if the users.csv file exists in the database folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the file exists, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libutils.user">
+<span id="libutils-user-module"></span><h2>libutils.user module<a class="headerlink" href="#module-libutils.user" title="Link to this heading"></a></h2>
+<p>Module for managing users in the library.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.user.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libutils/user.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.user.User" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a user in the library.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="libutils.user.UserDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libutils.user.</span></span><span class="sig-name descname"><span class="pre">UserDatabase</span></span><a class="reference internal" href="_modules/libutils/user.html#UserDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.user.UserDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for managing user database in the library.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.user.UserDatabase.add_user">
+<span class="sig-name descname"><span class="pre">add_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libutils/user.html#UserDatabase.add_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.user.UserDatabase.add_user" title="Link to this definition"></a></dt>
+<dd><p>Add a user to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the user.</p></li>
+<li><p><strong>user_id</strong> (<em>str</em>) – The ID of the user.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libutils.user.UserDatabase.get_users">
+<span class="sig-name descname"><span class="pre">get_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/libutils/user.html#UserDatabase.get_users"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libutils.user.UserDatabase.get_users" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all users from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries containing details of all users in the database.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libutils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-libutils" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, PavanKumarPHV.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
