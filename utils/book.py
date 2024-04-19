@@ -33,6 +33,7 @@ class Book:
             self.title = title
             self.author = author
             self.isbn = isbn
+            self.AvailableInLibrary = "Yes"
 
     def __str__(self) -> str:
         """
@@ -86,10 +87,12 @@ class BookDatabase:
                 books_data.append({
                     "title": book.title,
                     "author": book.author,
-                    "isbn": book.isbn
+                    "isbn": book.isbn,
+                    "AvailableInLibrary":book.AvailableInLibrary
                 })
         if self._storage.books_exist():
-            loaded_books_data = self._storage.load_books_data()
+            books_path = self._storage.books_filepath
+            loaded_books_data = self._storage.load_data(books_path)
             if loaded_books_data:
                 books_data.extend(loaded_books_data)
         return books_data
