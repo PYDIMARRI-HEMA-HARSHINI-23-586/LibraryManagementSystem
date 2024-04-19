@@ -2,10 +2,13 @@
 
 from typing import List, Dict
 from .storage import Storage
+import re
+
+import re
 
 class Book:
     """Class representing a book in the library."""
-    
+
     def __init__(self, title: str, author: str, isbn: str):
         """
         Initialize a Book object.
@@ -15,25 +18,53 @@ class Book:
             author (str): The author of the book.
             isbn (str): The ISBN of the book.
         """
+        self.title = None
+        self.author = None
+        self.isbn = None
+        self.AvailableInLibrary = "Yes"
+        
+        self.validate_and_set_book_info(title, author, isbn)
+
+    def validate_and_set_book_info(self, title: str, author: str, isbn: str):
+        """
+        Validate the input information and set book attributes if valid.
+
+        Args:
+            title (str): The title of the book.
+            author (str): The author of the book.
+            isbn (str): The ISBN of the book.
+        """
         try:
-            if not title.strip() and not author.strip() and not isbn.strip():
+            if not title.strip() or not author.strip() or not isbn.strip():
                 raise ValueError("Book information is incomplete")
-            if not title.strip():
-                raise ValueError("Title cannot be empty")
-            if not author.strip():
-                raise ValueError("Author cannot be empty")
-            if not isbn.strip():
-                raise ValueError("ISBN cannot be empty")
-        except ValueError as e:
-            print(f"Error: {e}")
-            self.title = None
-            self.author = None
-            self.isbn = None
+            if not isinstance(title, str) or not isinstance(author, str) or not isinstance(isbn, str):
+                raise TypeError("Title, author, and ISBN must be strings")
+            if not self.validate_isbn(isbn):
+                raise ValueError("Invalid ISBN")
+        except ValueError as ve:
+            print("\nError:", ve)
+            if 'ISBN' in str(ve):
+                print("Example of a valid ISBN: 978-0-123456-78-9")
+        except TypeError as te:
+            print("\nError:", te)
         else:
             self.title = title
             self.author = author
             self.isbn = isbn
-            self.AvailableInLibrary = "Yes"
+
+
+    def validate_isbn(self, isbn: str) -> bool:
+        """
+        Validate the ISBN using a regular expression.
+
+        Args:
+            isbn (str): The ISBN to validate.
+
+        Returns:
+            bool: True if the ISBN is valid, False otherwise.
+        """
+        isbn_pattern = r"^(978|979)-\d{1,5}-\d{1,7}-\d{1,7}-\d$"
+        return bool(re.match(isbn_pattern, isbn))
 
     def __str__(self) -> str:
         """
