@@ -1,3 +1,5 @@
+"""Module for managing storage of data in the library."""
+
 import csv
 from typing import List, Dict
 from datetime import datetime

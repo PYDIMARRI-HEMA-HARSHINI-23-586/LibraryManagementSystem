@@ -1,7 +1,11 @@
+"""Module for managing books in the library."""
+
 from typing import List, Dict
 from .storage import Storage
 
 class Book:
+    """Class representing a book in the library."""
+    
     def __init__(self, title: str, author: str, isbn: str):
         """
         Initialize a Book object.
@@ -38,7 +42,10 @@ class Book:
         return f"Title: {self.title}, Author: {self.author}, ISBN: {self.isbn}"
 
 class BookDatabase:
+    """Class representing a database of books."""
+
     def __init__(self):
+        """Initialize the BookDatabase."""
         self._books = []
         self._storage = Storage()
 

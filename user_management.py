@@ -1,6 +1,14 @@
+"""
+Module for user management functionalities.
+"""
+
 from utils.user import user_database
 
-class UserManager:
+class UserManagement:
+    """
+    Class for managing users in the system.
+    """
+    
     def add_user(self, name: str, user_id: str) -> None:
         """
         Add a user to the system.

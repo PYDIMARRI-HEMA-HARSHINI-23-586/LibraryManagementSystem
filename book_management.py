@@ -1,6 +1,10 @@
+"""Module for managing books in the library."""
+
 from utils.book import book_database
 
 class BookManagement:
+    """Class for managing books in the library."""
+    
     def add_book(self, title: str, author: str, isbn: str) -> None:
         """
         Add a book to the library.

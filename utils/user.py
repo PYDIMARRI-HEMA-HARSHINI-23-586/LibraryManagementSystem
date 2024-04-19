@@ -1,4 +1,8 @@
+"""Module for managing users in the library."""
+
 class User:
+    """Class representing a user in the library."""
+
     def __init__(self, name: str, user_id: str):
         """
         Initialize a User object.
@@ -27,7 +31,10 @@ class User:
         return f"Name: {self.name}, UserID: {self.user_id}"
 
 class UserDatabase:
+    """Class for managing user database in the library."""
+
     def __init__(self):
+        """Initialize the UserDatabase."""
         self._users = []
 
     def add_user(self, name: str, user_id: str) -> None:
