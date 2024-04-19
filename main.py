@@ -41,15 +41,32 @@ class LibraryManagementSystem:
         return input("Enter choice: ")
 
     def add_book(self, title: str, author: str, isbn: str) -> None:
+            """
+            Adds a book to the library.
+
+            Args:
+                title (str): The title of the book.
+                author (str): The author of the book.
+                isbn (str): The ISBN of the book.
+            """
+            try:
+                self.book_manager.add_book(title, author, isbn)
+            except ValueError as e:
+                print(f"\nError: {e}")
+
+    def checkout_book(self, user_id: str, isbn: str) -> None:
         """
-        Adds a book to the library.
+        Handles the checkout process for a book.
 
         Args:
-            title (str): The title of the book.
-            author (str): The author of the book.
-            isbn (str): The ISBN of the book.
+            user_id (str): The ID of the user.
+            isbn (str): The ISBN of the book to be checked out.
         """
-        self.book_manager.add_book(title, author, isbn)
+        try:
+            self.checkout_manager.checkout_book(user_id, isbn)
+            print("Book checked out.")
+        except ValueError as e:
+            print(f"\nError: {e}")
 
     def list_books(self) -> None:
         """Lists all the books in the library."""
@@ -81,16 +98,6 @@ class LibraryManagementSystem:
         else:
             print("No Users in the library, Please add users.")
 
-    def checkout_book(self, user_id: str, isbn: str) -> None:
-        """
-        Handles the checkout process for a book.
-
-        Args:
-            user_id (str): The ID of the user.
-            isbn (str): The ISBN of the book to be checked out.
-        """
-        self.checkout_manager.checkout_book(user_id, isbn)
-        print("Book checked out.")
 
     def run(self) -> None:
         """Main function to run the library management system."""
