@@ -41,10 +41,18 @@ class LibraryManagementSystem:
                 author = input("Enter author: ")
                 isbn = input("Enter ISBN: ")
                 self.book_manager.add_book(title, author, isbn)
-                print("Book added.")
+                
             elif choice == '2':
-                print("List of books:")
-                print(self.book_manager.list_books())
+                print("-------------------------")
+                print("List of books in Library:")
+                print("-------------------------")
+                books_data = self.book_manager.list_books()
+                for index, book in enumerate(books_data, start=1):
+                    print(f"Book {index}:")
+                    print(f"Title: {book['title']}")
+                    print(f"Author: {book['author']}")
+                    print(f"ISBN: {book['isbn']}")
+                    print("-------------------------")
             elif choice == '3':
                 name = input("Enter user name: ")
                 user_id = input("Enter user ID: ")

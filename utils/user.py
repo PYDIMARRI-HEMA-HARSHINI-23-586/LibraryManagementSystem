@@ -7,8 +7,18 @@ class User:
             name (str): The name of the user.
             user_id (str): The ID of the user.
         """
-        self.name = name
-        self.user_id = user_id
+        try:
+            if not name:
+                raise ValueError("Name cannot be empty")
+            if not user_id:
+                raise ValueError("User ID cannot be empty")
+        except ValueError as e:
+            print(f"Error: {e}")
+            self.name = None
+            self.user_id = None
+        else:
+            self.name = name
+            self.user_id = user_id
 
     def __str__(self) -> str:
         """
@@ -28,12 +38,23 @@ class UserDatabase:
             name (str): The name of the user.
             user_id (str): The ID of the user.
         """
-        user = User(name, user_id)
-        self._users.append(user)
+        try:
+            if not name:
+                raise ValueError("Name cannot be empty")
+            if not user_id:
+                raise ValueError("User ID cannot be empty")
+        except ValueError as e:
+            print(f"Error: {e}")
+        else:
+            user = User(name, user_id)
+            self._users.append(user)
 
     def get_users(self) -> list:
         """
         Retrieve all users from the database.
+
+        Returns:
+            list: List of dictionaries containing details of all users in the database.
         """
         user_data = []
         for user in self._users:
