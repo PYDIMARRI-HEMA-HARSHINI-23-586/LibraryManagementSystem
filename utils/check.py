@@ -1,3 +1,5 @@
+from .storage import Storage
+
 class Checkout:
     def __init__(self, user_id: str, isbn: str):
         """
@@ -25,6 +27,9 @@ class Checkout:
 class CheckoutDatabase:
     def __init__(self):
         self._checkouts = []
+        self._storage = Storage()
+        self.books_path = self._storage.books_filepath
+        self.users_path = self._storage.users_filepath
 
     def checkout_book(self, user_id: str, isbn: str) -> None:
         """
@@ -44,6 +49,33 @@ class CheckoutDatabase:
         else:
             checkout = Checkout(user_id, isbn)
             self._checkouts.append(checkout)
+        existing_books = self._storage.load_data(self.books_path)
+        existing_isbns = [book["isbn"] for book in existing_books]
+        
+        existing_users = self._storage.load_data(self.users_path)
+        existing_ids = [book["isbn"] for book in existing_books]
+        try:
+            book_index = existing_isbns.index(isbn)
+            existing_books[book_index]['AvailableInLibrary'] = 'No'
+            self._storage.save_data(data = existing_books, filepath = self.books_path,fieldnames=None, unique_key = None, mode = 'w')
+            
+            
+            user_index = existing_ids.index(isbn)
+            inhad_val = existing_users[user_index]['BookInHand']
+    
+            if not inhad_val:
+                existing_users[user_index]['BookInHand'] = isbn
+            else:
+                existing_users[user_index]['BookInHand'] = f"{inhad_val}, f{isbn}"
+            
+            self._storage.save_data(data = existing_users, filepath = self.users_path,fieldnames=None, unique_key = None, mode = 'w')
+            
+        except ValueError as e:
+            print(f"\nError: {e}")
+            print(f"isbn {isbn} not found in the library database.")
+        
+        
+        
 
     def get_checkouts(self) -> list:
         """

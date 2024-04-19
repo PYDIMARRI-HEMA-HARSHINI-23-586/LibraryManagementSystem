@@ -4,11 +4,9 @@ from datetime import datetime
 import os
 
 class Storage:
-    TIMESTAMP_FIELDNAME = "timestamp"
-    BOOKS_FILENAME = "books.csv"
-    USER_INFO = "users.csv"
+    """A class to manage data storage for a library management system using CSV files."""
 
-    def __init__(self, database_folder="database"):
+    def __init__(self, database_folder: str = "database") -> None:
         """
         Initialize the Storage class.
 
@@ -16,13 +14,119 @@ class Storage:
             database_folder (str, optional): The folder where database files will be stored. Defaults to "database".
         """
         self.database_folder = database_folder
-        self.books_filepath = os.path.join(self.database_folder, self.BOOKS_FILENAME)
-        self.users_filepath = os.path.join(self.database_folder, self.USER_INFO)
+        self.books_filepath = os.path.join(self.database_folder, "books.csv")
+        self.users_filepath = os.path.join(self.database_folder, "users.csv")
 
         # Create the database folder if it doesn't exist
         if not os.path.exists(self.database_folder):
             os.makedirs(self.database_folder)
+
+    def save_system_state(self, books: List[Dict[str, str]], users: List[Dict[str, str]]) -> None:
+        """
+        Save the current state of the library management system in CSV format.
+
+        Args:
+            books (List[Dict[str, str]]): List of dictionaries representing books.
+            users (List[Dict[str, str]]): List of dictionaries representing users.
+        """
+        
+        if books:
+            self.save_data(books, self.books_filepath, self._get_books_fieldnames(), "isbn")
+        
+        if users:
+            self.save_data(users, self.users_filepath, self._get_users_fieldnames(), "UserID")
+
+    def save_data(self, data: List[Dict[str, str]], filepath: str, fieldnames: List[str], unique_key: str, mode = 'a') -> None:
+        """
+        Save data to a CSV file.
+
+        Args:
+            data (List[Dict[str, str]]): List of dictionaries representing data.
+            filepath (str): Path to the CSV file.
+            fieldnames (List[str]): Field names for the CSV file.
+            unique_key (str): Unique key to check for duplicates.
+            current_time (str): Current timestamp.
+        """
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        existing_data = self.load_data(filepath)
+        if unique_key:
+            
+            existing_keys = set(record[unique_key] for record in existing_data)
+            new_records = []
+
+            for record in data:
+                if record[unique_key] not in existing_keys:
+                    # record = self._fill_empty_values(record,custom_value)
+                    if unique_key == "UserID":
+                        record['BookInHand'] = None
+                    else:
+                        record["AvailableInLibrary"] = "Yes"
+
+                    record['timestamp'] = current_time
+                    new_records.append(record)
+            if new_records:
+                with open(filepath, mode, newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=fieldnames)
+                    if os.path.getsize(filepath) == 0:
+                        writer.writeheader()
+                    writer.writerows(new_records)
+            
+
+        else:
+            fieldnames = list(data[0].keys())
+
+            with open(filepath, mode, newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(data)
+            with open(filepath, mode, newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                if os.path.getsize(filepath) == 0:
+                    writer.writeheader()
+                    for record in data:
+                        record['timestamp'] = current_time
+                        writer.writerow(record)
+
+    def load_data(self, filepath: str) -> List[Dict[str, str]]:
+        """
+        Load data from a CSV file.
+
+        Args:
+            filepath (str): Path to the CSV file.
+
+        Returns:
+            List[Dict[str, str]]: The loaded data.
+        """
+        data = []
+        if os.path.exists(filepath):
+            with open(filepath, 'r', newline='') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    data.append(dict(row))
+        return data
     
+    def _fill_empty_values(self, record: Dict[str, str], custom_value: str) -> Dict[str, str]:
+        """
+        Fill empty values in a record with custom value.
+
+        Args:
+            record (Dict[str, str]): The record to fill.
+
+        Returns:
+            Dict[str, str]: The record with empty values filled with None.
+        """
+        # breakpoint()
+        return {key: value if value.strip() else custom_value for key, value in record.items()}
+
+
+    def _get_books_fieldnames(self) -> List[str]:
+        """Get the field names for the books CSV file."""
+        return ["title", "author", "isbn", "AvailableInLibrary", "timestamp"]
+
+    def _get_users_fieldnames(self) -> List[str]:
+        """Get the field names for the users CSV file."""
+        return ["Name", "UserID", "BookInHand", "timestamp"]
+
     def books_exist(self) -> bool:
         """
         Check if the books.csv file exists in the database folder.
@@ -31,72 +135,3 @@ class Storage:
             bool: True if the file exists, False otherwise.
         """
         return os.path.isfile(self.books_filepath)
-
-            
-    def save_system_state(self, books: List[Dict], users: List[Dict]) -> None:
-        """
-        Save the current state of the library management system in CSV format.
-
-        Args:
-            books (List[Dict]): List of dictionaries representing books.
-            users (List[Dict]): List of dictionaries representing users.
-        """
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        if books:
-            existing_books = self.load_books_data()
-            existing_isbns = set(book["isbn"] for book in existing_books)
-            new_books = [book for book in books if book["isbn"] not in existing_isbns] 
-            if new_books:
-                with open(self.books_filepath, 'a', newline='') as books_file:
-                    fieldnames = list(new_books[0].keys()) + [self.TIMESTAMP_FIELDNAME]
-                    books_writer = csv.DictWriter(books_file, fieldnames=fieldnames)
-                    if os.path.getsize(self.books_filepath) == 0:
-                        books_writer.writeheader()
-                    for book in new_books:
-                        book[self.TIMESTAMP_FIELDNAME] = current_time
-                        books_writer.writerow(book)
-        
-        if users:
-            existing_users = self.load_users_data()
-            existing_ids = set(user["UserID"] for user in existing_users)
-            new_users = [user for user in users if user["UserID"] not in existing_ids] 
-            if new_users:
-                with open(self.users_filepath, 'a', newline='') as users_file:
-                    fieldnames = list(new_users[0].keys()) + [self.TIMESTAMP_FIELDNAME]
-                    users_writer = csv.DictWriter(users_file, fieldnames=fieldnames)
-                    if os.path.getsize(self.users_filepath) == 0:
-                        users_writer.writeheader()
-                    for user in new_users:
-                        user[self.TIMESTAMP_FIELDNAME] = current_time
-                        users_writer.writerow(user)
-
-    def load_books_data(self) -> List[Dict]:
-        """
-        Load books data from a CSV file.
-
-        Returns:
-            List[Dict]: The loaded books data.
-        """
-        books_data = []
-        if os.path.exists(self.books_filepath):
-            with open(self.books_filepath, 'r', newline='') as books_file:
-                books_reader = csv.DictReader(books_file)
-                for row in books_reader:
-                    books_data.append(dict(row))
-        return books_data
-
-    def load_users_data(self) -> List[Dict]:
-        """
-        Load users data from a CSV file.
-
-        Returns:
-            List[Dict]: The loaded users data.
-        """
-        users_data = []
-        if os.path.exists(self.users_filepath):
-            with open(self.users_filepath, 'r', newline='') as users_file:
-                users_reader = csv.DictReader(users_file)
-                for row in users_reader:
-                    users_data.append(dict(row))
-        return users_data

@@ -13,6 +13,7 @@ class LibraryManagementSystem:
         self.book_manager = BookManagement()
         self.user_manager = UserManager()
         self.checkout_manager = CheckoutManagement() 
+        self.storage = Storage()
 
     def display_main_menu(self) -> str:
         """
@@ -25,10 +26,10 @@ class LibraryManagementSystem:
         print("1. Add Book")
         print("2. List Books")
         print("3. Add User")
-        print("4. Checkout Book")
-        print("5. Exit")
-        choice = input("Enter choice: ")
-        return choice
+        print("4. User database")
+        print("5. Checkout Book")
+        print("6. Exit")
+        return input("Enter choice: ")
 
     def run(self) -> None:
         """
@@ -37,47 +38,35 @@ class LibraryManagementSystem:
         while True:
             choice = self.display_main_menu()
             if choice == '1':
-                title = input("Enter title: ")
-                author = input("Enter author: ")
-                isbn = input("Enter ISBN: ")
-                self.book_manager.add_book(title, author, isbn)
-                
+                self.book_manager.add_book(*(input(f"Enter {field}: ") for field in ["title", "author", "isbn"]))
             elif choice == '2':
-                print("-------------------------")
-                print("List of books in Library:")
-                print("-------------------------")
-                books_data = self.book_manager.list_books()
-                for index, book in enumerate(books_data, start=1):
-                    print(f"Book {index}:")
-                    print(f"Title: {book['title']}")
-                    print(f"Author: {book['author']}")
-                    print(f"ISBN: {book['isbn']}")
-                    print("-------------------------")
+                print("\n-------------------------\nList of books in Library:\n-------------------------")
+                if self.book_manager.list_books():
+                    for index, book in enumerate(self.book_manager.list_books(), start=1):
+                        print(f"Book {index}:\nTitle: {book['title']}\nAuthor: {book['author']}\nISBN: {book['isbn']}\nAvailableInLibrary: {book['AvailableInLibrary']}\n-------------------------")
+                else:
+                    print("No Books in the library, Please add books.")
             elif choice == '3':
-                name = input("Enter user name: ")
-                user_id = input("Enter user ID: ")
-                self.user_manager.add_user(name, user_id)
+                self.user_manager.add_user(*(input(f"Enter {field}: ") for field in ["name", "user ID"]))
                 print("User added.")
             elif choice == '4':
-                user_id = input("Enter user ID: ")
-                isbn = input("Enter ISBN of the book to checkout: ")
-                self.checkout_manager.checkout_book(user_id, isbn)  # Using CheckoutManagement to checkout a book
-                print("Book checked out.")
+                print("\n-------------------------\nList of users registerd in Library:\n-------------------------")
+                if self.user_manager.list_users():
+                    for index, user_info in enumerate(self.user_manager.list_users(), start=1):
+                        print(f"UserID {user_info['UserID']}:\nName: {user_info['Name']}\nBooksInHand: {user_info['BooksInHand']}\nTimestamp: {user_info['Timestamp']}\n-------------------------")
+                else:
+                    print("No Books in the library, Please add books.")
+                print("User added.")
             elif choice == '5':
+                self.checkout_manager.checkout_book(*(input(f"Enter {field}: ") for field in ["user ID", "ISBN"]))
+                print("Book checked out.")
+            elif choice == '6':
                 print("Exiting.")
                 break
             else:
                 print("Invalid choice, please try again.")
         lib_data, users_data = self.book_manager.list_books(), self.user_manager.list_users()
-        return lib_data, users_data
-
+        self.storage.save_system_state(books=lib_data, users=users_data)
 
 if __name__ == "__main__":
-    library_system = LibraryManagementSystem()
-    lib_data, users_data = library_system.run()
-    
-    # Create an instance of the Storage class
-    storage = Storage()
-    # Call the save_system_state method on the storage instance
-    storage.save_system_state(books=lib_data, users=users_data)
-
+    LibraryManagementSystem().run()
