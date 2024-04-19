@@ -1,6 +1,6 @@
 """Module for managing books in the library."""
 
-from utils.book import book_database
+from libutils.book import book_database
 
 class BookManagement:
     """Class for managing books in the library."""

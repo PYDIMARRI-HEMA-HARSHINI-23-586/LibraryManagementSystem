@@ -4,14 +4,14 @@ Author: Pavan Kumar
 Project: library management system
 """
 from book_management import BookManagement
-from user_management import UserManager
+from user_management import UserManagement
 from checkout_management import CheckoutManagement  
-from utils.storage import Storage
+from libutils.storage import Storage
 
 class LibraryManagementSystem:
     def __init__(self):
         self.book_manager = BookManagement()
-        self.user_manager = UserManager()
+        self.user_manager = UserManagement()
         self.checkout_manager = CheckoutManagement() 
         self.storage = Storage()
 
@@ -53,10 +53,11 @@ class LibraryManagementSystem:
                 print("\n-------------------------\nList of users registerd in Library:\n-------------------------")
                 if self.user_manager.list_users():
                     for index, user_info in enumerate(self.user_manager.list_users(), start=1):
-                        print(f"UserID {user_info['UserID']}:\nName: {user_info['Name']}\nBooksInHand: {user_info['BooksInHand']}\nTimestamp: {user_info['Timestamp']}\n-------------------------")
+                        if not user_info['BookInHand']:
+                            all_books = "Nothing"
+                        print(f"UserID {user_info['UserID']}:\nName: {user_info['Name']}\nBooksInHand: {all_books}\n-------------------------")
                 else:
                     print("No Books in the library, Please add books.")
-                print("User added.")
             elif choice == '5':
                 self.checkout_manager.checkout_book(*(input(f"Enter {field}: ") for field in ["user ID", "ISBN"]))
                 print("Book checked out.")

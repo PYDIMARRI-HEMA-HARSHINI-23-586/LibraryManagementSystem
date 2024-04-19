@@ -1,5 +1,7 @@
 """Module for managing users in the library."""
 
+from .storage import Storage
+
 class User:
     """Class representing a user in the library."""
 
@@ -36,6 +38,7 @@ class UserDatabase:
     def __init__(self):
         """Initialize the UserDatabase."""
         self._users = []
+        self._storage = Storage()
 
     def add_user(self, name: str, user_id: str) -> None:
         """
@@ -64,11 +67,18 @@ class UserDatabase:
             list: List of dictionaries containing details of all users in the database.
         """
         user_data = []
-        for user in self._users:
-            user_data.append({
-                "Name": user.name,
-                "UserID": user.user_id
-            })
+        if self._users:
+            for user in self._users:
+                user_data.append({
+                    "Name": user.name,
+                    "UserID": user.user_id,
+                    "BookInHand": None
+                })
+        if self._storage.users_exist():
+            users_path = self._storage.users_filepath
+            loaded_users_data = self._storage.load_data(users_path)
+            if loaded_users_data:
+                user_data.extend(loaded_users_data)
         return user_data
 
 # Global instance of UserDatabase

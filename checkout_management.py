@@ -1,6 +1,6 @@
 """Module for managing checkouts in the library."""
 
-from utils.check import checkout_database
+from libutils.check import checkout_database
 
 class CheckoutManagement:
     """Class for managing checkouts in the library."""

@@ -2,7 +2,7 @@
 Module for user management functionalities.
 """
 
-from utils.user import user_database
+from libutils.user import user_database
 
 class UserManagement:
     """
