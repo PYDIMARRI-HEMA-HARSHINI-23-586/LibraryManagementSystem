@@ -137,3 +137,12 @@ class Storage:
             bool: True if the file exists, False otherwise.
         """
         return os.path.isfile(self.books_filepath)
+    
+    def users_exist(self) -> bool:
+        """
+        Check if the users.csv file exists in the database folder.
+
+        Returns:
+            bool: True if the file exists, False otherwise.
+        """
+        return os.path.isfile(self.users_filepath)
