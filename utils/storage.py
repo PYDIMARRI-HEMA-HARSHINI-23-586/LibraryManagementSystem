@@ -1,9 +1,13 @@
+"""Module for managing storage of data in the library."""
+
 import csv
 from typing import List, Dict
 from datetime import datetime
 import os
 
 class Storage:
+    """Class for managing storage of data in the library."""
+    
     TIMESTAMP_FIELDNAME = "timestamp"
     BOOKS_FILENAME = "books.csv"
     USER_INFO = "users.csv"
@@ -46,7 +50,7 @@ class Storage:
         if books:
             existing_books = self.load_books_data()
             existing_isbns = set(book["isbn"] for book in existing_books)
-            new_books = [book for book in books if book["isbn"] not in existing_isbns] 
+            new_books = [book for book in books if book["isbn"] not in existing_isbns]
             if new_books:
                 with open(self.books_filepath, 'a', newline='') as books_file:
                     fieldnames = list(new_books[0].keys()) + [self.TIMESTAMP_FIELDNAME]
@@ -56,11 +60,11 @@ class Storage:
                     for book in new_books:
                         book[self.TIMESTAMP_FIELDNAME] = current_time
                         books_writer.writerow(book)
-        
+
         if users:
             existing_users = self.load_users_data()
             existing_ids = set(user["UserID"] for user in existing_users)
-            new_users = [user for user in users if user["UserID"] not in existing_ids] 
+            new_users = [user for user in users if user["UserID"] not in existing_ids]
             if new_users:
                 with open(self.users_filepath, 'a', newline='') as users_file:
                     fieldnames = list(new_users[0].keys()) + [self.TIMESTAMP_FIELDNAME]

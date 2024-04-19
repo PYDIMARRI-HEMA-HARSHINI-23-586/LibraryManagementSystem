@@ -1,4 +1,12 @@
+"""
+Module for checkout functionalities.
+"""
+
 class Checkout:
+    """
+    Represents a book checkout.
+    """
+    
     def __init__(self, user_id: str, isbn: str):
         """
         Initialize a Checkout object.
@@ -23,6 +31,10 @@ class Checkout:
             self.isbn = isbn
 
 class CheckoutDatabase:
+    """
+    Database for managing book checkouts.
+    """
+    
     def __init__(self):
         self._checkouts = []
 

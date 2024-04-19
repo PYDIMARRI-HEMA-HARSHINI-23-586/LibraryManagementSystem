@@ -1,3 +1,7 @@
+"""
+Module for unit tests of the book, checkout, storage, and user modules.
+"""
+
 import unittest
 import os
 from utils.book import Book, BookDatabase
@@ -32,12 +36,21 @@ class TestBook(unittest.TestCase):
     # Add more test cases as needed for edge cases and additional functionalities
 
 class TestBookDatabase(unittest.TestCase):
+    """
+    Class for testing BookDatabase functionality.
+    """
     def setUp(self):
-        # Initialize a BookDatabase instance for each test case
+        """
+        Set up method for the test class.
+        """
+        
         self.book_database = BookDatabase()
 
     def test_add_book(self):
-        # Test adding a new book
+        """
+        Test adding a book to the database.
+        """
+        
         self.book_database.add_book("Title", "Author", "ISBN")
         self.assertEqual(len(self.book_database._books), 1)
 
@@ -81,12 +94,22 @@ class TestUser(unittest.TestCase):
     # Add more test cases as needed for edge cases and additional functionalities
 
 class TestUserDatabase(unittest.TestCase):
+    """
+    Class for testing UserDatabase functionality.
+    """
+    
     def setUp(self):
-        # Initialize a UserDatabase instance for each test case
+        """
+        Set up method for the test class.
+        """
+        
         self.user_database = UserDatabase()
 
     def test_add_user(self):
-        # Test adding a new user
+        """
+        Test adding a user to the database.
+        """
+        
         self.user_database.add_user("John Doe", "123")
         self.assertEqual(len(self.user_database._users), 1)
 
@@ -101,7 +124,15 @@ class TestUserDatabase(unittest.TestCase):
     # Add more test cases as needed for other functionalities
 
 class TestStorage(unittest.TestCase):
+    """
+    Class for testing Storage functionality.
+    """
+    
     def setUp(self):
+        """
+        Set up method for the test class.
+        """
+        
         # Create a temporary folder for testing
         self.test_folder = "test_folder"
         os.makedirs(self.test_folder)
@@ -118,7 +149,10 @@ class TestStorage(unittest.TestCase):
         os.rmdir(self.test_folder)
 
     def test_books_exist(self):
-        # Test when books file exists
+        """
+        Test checking if books exist in the storage.
+        """
+        
         with open(os.path.join(self.test_folder, "books.csv"), 'w'):
             pass
         self.assertTrue(self.storage.books_exist())
@@ -127,7 +161,10 @@ class TestStorage(unittest.TestCase):
         self.assertFalse(self.storage.books_exist())
 
     def test_save_system_state(self):
-        # Test saving system state with new books and users
+        """
+        Test saving the system state to storage.
+        """
+        
         books = [{"title": "Book1", "author": "Author1", "isbn": "123456"}]
         users = [{"UserID": "user1", "Name": "User 1"}]
         self.storage.save_system_state(books, users)
@@ -137,7 +174,10 @@ class TestStorage(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(self.test_folder, "users.csv")))
 
     def test_load_books_data(self):
-        # Test loading books data from an existing file
+        """
+        Test loading books data from storage.
+        """
+        
         with open(os.path.join(self.test_folder, "books.csv"), 'w') as f:
             f.write("title,author,isbn\n")
             f.write("Book1,Author1,123456\n")
@@ -154,7 +194,10 @@ class TestStorage(unittest.TestCase):
         self.assertEqual(len(books_data), 0)
 
     def test_load_users_data(self):
-        # Test loading users data from an existing file
+        """
+        Test loading users data from storage.
+        """
+        
         with open(os.path.join(self.test_folder, "users.csv"), 'w') as f:
             f.write("UserID,Name\n")
             f.write("user1,User 1\n")
