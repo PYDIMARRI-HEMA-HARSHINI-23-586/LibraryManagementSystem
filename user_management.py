@@ -19,8 +19,11 @@ class UserManagement:
         """
         user_database.add_user(name, user_id)
 
-    def list_users(self) -> None:
+    def list_users(self) -> list:
         """
         List all users in the system.
+
+        Returns:
+            list: A list of dictionaries containing user information.
         """
         return user_database.get_users()

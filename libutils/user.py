@@ -13,18 +13,39 @@ class User:
             name (str): The name of the user.
             user_id (str): The ID of the user.
         """
+        self.name = None
+        self.user_id = None
+        self._storage = Storage()
+        self.users_path = self._storage.users_filepath
+        existing_users = self._storage.load_data(self.users_path)
+        self.existing_ids = [user["UserID"] for user in existing_users]
+        
+        self.validate_and_set_user_info(name, user_id)
+
+    def validate_and_set_user_info(self, name: str, user_id: str):
+        """
+        Validate the input information and set user attributes if valid.
+
+        Args:
+            name (str): The name of the user.
+            user_id (str): The ID of the user.
+        """
         try:
-            if not name:
-                raise ValueError("Name cannot be empty")
-            if not user_id:
-                raise ValueError("User ID cannot be empty")
-        except ValueError as e:
-            print(f"Error: {e}")
-            self.name = None
-            self.user_id = None
+            if not name.strip() or not user_id.strip():
+                raise ValueError("User information is incomplete")
+            if not isinstance(name, str) or not isinstance(user_id, str):
+                raise TypeError("Name and User ID must be strings")
+            # Assuming self.existing_ids is a list or set containing existing user IDs
+            if user_id in self.existing_ids:
+                raise ValueError(f"User ID '{user_id}' already exists in the database")
+        except ValueError as ve:
+            print("\nError:", ve)
+        except TypeError as te:
+            print("\nError:", te)
         else:
             self.name = name
             self.user_id = user_id
+
 
     def __str__(self) -> str:
         """
@@ -54,10 +75,11 @@ class UserDatabase:
             if not user_id:
                 raise ValueError("User ID cannot be empty")
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f"\nError: {e}")
         else:
             user = User(name, user_id)
             self._users.append(user)
+            print("User added.")
 
     def get_users(self) -> list:
         """

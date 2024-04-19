@@ -65,7 +65,7 @@ class CheckoutDatabase:
         existing_isbns = [book["isbn"] for book in existing_books]
         
         existing_users = self._storage.load_data(self.users_path)
-        existing_ids = [book["isbn"] for book in existing_books]
+        existing_ids = [user["UserID"] for user in existing_users]
         try:
             book_index = existing_isbns.index(isbn)
             existing_books[book_index]['AvailableInLibrary'] = 'No'
