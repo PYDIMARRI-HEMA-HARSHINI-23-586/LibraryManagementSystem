@@ -18,6 +18,9 @@ class UserManagement:
             user_id (str): The ID of the user.
         """
         user_database.add_user(name, user_id)
+    
+    def print_users_database(self,users):
+        return user_database.print_users(users)
 
     def list_users(self) -> list:
         """

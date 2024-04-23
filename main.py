@@ -31,13 +31,13 @@ class LibraryManagementSystem:
         Returns:
             str: The user's choice.
         """
-        print("\nLibrary Management System")
-        print("1. Add Book")
-        print("2. List Books")
-        print("3. Add User")
-        print("4. List Users")
-        print("5. Checkout Book")
-        print("6. Exit")
+        print(f"\n-------------------------------\n🏛️ Library Management System 🏛️\n-------------------------------")
+        print("1. 🆕 Add Book")
+        print("2. 📚 List Books")
+        print("3. 🆕 Add User")
+        print("4. 📜 List Users")
+        print("5. ✅ Checkout Book")
+        print("6. ⛔ Exit")
         return input("Enter choice: ")
 
     def add_book(self, title: str, author: str, isbn: str) -> None:
@@ -52,9 +52,13 @@ class LibraryManagementSystem:
             try:
                 self.book_manager.add_book(title, author, isbn)
             except ValueError as e:
-                print(f"\nError: {e}")
+                if str(e).strip() == "Invalid ISBN":
+                    print(f"\n❌ Error: {e} ❌")
+                    print("Valid ISBN example: 978-0-123456-78-9")
+                else:
+                    print(f"\n❌ Error: {e} ❌")
 
-    def checkout_book(self, user_id: str, isbn: str) -> None:
+    def checkout_book(self) -> None:
         """
         Handles the checkout process for a book.
 
@@ -63,19 +67,19 @@ class LibraryManagementSystem:
             isbn (str): The ISBN of the book to be checked out.
         """
         try:
-            self.checkout_manager.checkout_book(user_id, isbn)
-            print("Book checked out.")
+            self.checkout_manager.checkout_book()
         except ValueError as e:
-            print(f"\nError: {e}")
+            print(f"\n❌ Error: {e} ❌")
 
     def list_books(self) -> None:
         """Lists all the books in the library."""
         books = self.book_manager.list_books()
         if books:
+            print("\n-------------------------\nList of books in Library:\n-------------------------")
             for index, book in enumerate(books, start=1):
                 print(f"Book {index}:\nTitle: {book['title']}\nAuthor: {book['author']}\nISBN: {book['isbn']}\nAvailableInLibrary: {book['AvailableInLibrary']}\n-------------------------")
         else:
-            print("No Books in the library, Please add books.")
+            print("\n------------------------------------------------\n⚠️ No Books in the library, Please add books ⚠️\n------------------------------------------------")
 
     def add_user(self, name: str, user_id: str) -> None:
         """
@@ -92,11 +96,9 @@ class LibraryManagementSystem:
         """Lists all the users registered in the library."""
         users = self.user_manager.list_users()
         if users:
-            for index, user_info in enumerate(users, start=1):
-                all_books = ", ".join(user_info['BookInHand']) if user_info['BookInHand'] else "Nothing"
-                print(f"UserID {user_info['UserID']}:\nName: {user_info['Name']}\nBooksInHand: {all_books}\n-------------------------")
+            self.user_manager.print_users_database(users)
         else:
-            print("No Users in the library, Please add users.")
+            print("\n------------------------------------------------\n⚠️ No Users in the library, Please add users ⚠️\n------------------------------------------------")
 
 
     def run(self) -> None:
@@ -106,20 +108,18 @@ class LibraryManagementSystem:
             if choice == '1':
                 self.add_book(*(input(f"Enter {field}: ") for field in ["title", "author", "isbn"]))
             elif choice == '2':
-                print("\n-------------------------\nList of books in Library:\n-------------------------")
                 self.list_books()
             elif choice == '3':
                 self.add_user(*(input(f"Enter {field}: ") for field in ["name", "user ID"]))
             elif choice == '4':
-                print("\n-------------------------\nList of users registered in Library:\n-------------------------")
                 self.list_users()
             elif choice == '5':
-                self.checkout_book(*(input(f"Enter {field}: ") for field in ["user ID", "ISBN"]))
+                self.checkout_book()
             elif choice == '6':
-                print("Exiting.")
+                print("\n-------------------------\n🚧 Application Closed 🚧\n-------------------------")
                 break
             else:
-                print("Invalid choice, please try again.")
+                print("\n--------------------------------------\n⚠️ Invalid choice, please try again ⚠️\n--------------------------------------")
         lib_data, users_data = self.book_manager.list_books(), self.user_manager.list_users()
         self.storage.save_system_state(books=lib_data, users=users_data)
 

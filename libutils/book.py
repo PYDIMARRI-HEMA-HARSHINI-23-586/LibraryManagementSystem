@@ -89,7 +89,7 @@ class BookDatabase:
             
         book = Book(title, author, isbn)
         self._books.append(book)
-        print("\nBook added.")
+        print("\nBook added successfully ✅.")
 
     def list_books(self) -> List[Dict[str, str]]:
         """

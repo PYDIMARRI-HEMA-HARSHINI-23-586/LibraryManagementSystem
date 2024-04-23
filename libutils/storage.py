@@ -72,6 +72,7 @@ class Storage:
                     if os.path.getsize(filepath) == 0:
                         writer.writeheader()
                     writer.writerows(new_records)
+                return True
             
 
         else:
@@ -105,6 +106,8 @@ class Storage:
                 reader = csv.DictReader(file)
                 for row in reader:
                     data.append(dict(row))
+        # else:
+        #     print("\n------------------------------------------------\n⚠️ No Users in the library, Please add users ⚠️\n------------------------------------------------")
         return data
     
     def _fill_empty_values(self, record: Dict[str, str], custom_value: str) -> Dict[str, str]:
@@ -119,7 +122,6 @@ class Storage:
         """
         # breakpoint()
         return {key: value if value.strip() else custom_value for key, value in record.items()}
-
 
     def _get_books_fieldnames(self) -> List[str]:
         """Get the field names for the books CSV file."""

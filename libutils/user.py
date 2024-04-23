@@ -39,9 +39,9 @@ class User:
             if user_id in self.existing_ids:
                 raise ValueError(f"User ID '{user_id}' already exists in the database")
         except ValueError as ve:
-            print("\nError:", ve)
+            print("\n❌ Error:", ve," ❌")
         except TypeError as te:
-            print("\nError:", te)
+            print("\n❌ Error:", te ," ❌")
         else:
             self.name = name
             self.user_id = user_id
@@ -60,6 +60,12 @@ class UserDatabase:
         """Initialize the UserDatabase."""
         self._users = []
         self._storage = Storage()
+    
+    def print_users(self, users):
+        print("\n-------------------------\nList of users registered in Library 📗:\n-------------------------")
+        for index, user_info in enumerate(users, start=1):
+            all_books = ", ".join(user_info['BookInHand']) if user_info['BookInHand'] else "Nothing"
+            print(f"UserID: {user_info['UserID']}\nName: {user_info['Name']}\nBooksInHand: {all_books}\n-------------------------")
 
     def add_user(self, name: str, user_id: str) -> None:
         """
@@ -74,12 +80,22 @@ class UserDatabase:
                 raise ValueError("Name cannot be empty")
             if not user_id:
                 raise ValueError("User ID cannot be empty")
+            if self._users and str(user_id) in [entry['UserID'] for entry in self.get_users()]:
+                raise ValueError("User ID already exists in database.")
+            if self._users and int(user_id) in [int(entry['UserID']) for entry in self.get_users()]:
+                raise ValueError("User ID already exists in database.")
+            # if self._storage.users_exist and 
         except ValueError as e:
-            print(f"\nError: {e}")
+            if str(e).strip() == "User ID already exists in database.":
+                    print(f"\n❌ Error: {e} ❌")
+                    self.print_users(self.get_users())
+                    
+            else:
+                print(f"\n❌ Error: {e} ❌")
         else:
             user = User(name, user_id)
             self._users.append(user)
-            print("User added.")
+            print("User successfully ✅.")   
 
     def get_users(self) -> list:
         """
@@ -96,7 +112,7 @@ class UserDatabase:
                     "UserID": user.user_id,
                     "BookInHand": None
                 })
-        if self._storage.users_exist():
+        if self._users and self._storage.users_exist():
             users_path = self._storage.users_filepath
             loaded_users_data = self._storage.load_data(users_path)
             if loaded_users_data:
