@@ -80,6 +80,8 @@ class BookDatabase:
         """
         if isbn in [book.isbn for book in self._books]:
             raise ValueError("Book with the same ISBN already exists.")
+        if isbn in [entry['isbn'] for entry in self.list_books()]:
+            raise ValueError("Book with the same ISBN already exists.")
         if not title:
             raise ValueError("Title cannot be empty")
         if not author:
@@ -99,15 +101,16 @@ class BookDatabase:
             List[Dict[str, str]]: List of dictionaries containing details of all books in the database.
         """
         books_data = []
-        
-        # Append books from the database
-        for book in self._books:
-            books_data.append({
-                "title": book.title,
-                "author": book.author,
-                "isbn": book.isbn,
-                "AvailableInLibrary": book.AvailableInLibrary
-            })
+                
+        if self._books:
+            # Append books from the database
+            for book in self._books:
+                books_data.append({
+                    "title": book.title,
+                    "author": book.author,
+                    "isbn": book.isbn,
+                    "AvailableInLibrary": book.AvailableInLibrary
+                })
         
         # Append loaded books from storage
         if self._storage.books_exist():

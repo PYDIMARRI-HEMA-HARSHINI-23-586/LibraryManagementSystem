@@ -55,6 +55,9 @@ class LibraryManagementSystem:
                 if str(e).strip() == "Invalid ISBN":
                     print(f"\n❌ Error: {e} ❌")
                     print("Valid ISBN example: 978-0-123456-78-9")
+                elif str(e).strip() == "Book with the same ISBN already exists.":
+                    print(f"\n❌ Error: {e} ❌")
+                    print(self.list_books())
                 else:
                     print(f"\n❌ Error: {e} ❌")
 

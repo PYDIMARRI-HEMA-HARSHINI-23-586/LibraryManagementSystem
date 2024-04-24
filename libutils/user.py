@@ -63,9 +63,8 @@ class UserDatabase:
     
     def print_users(self, users):
         print("\n-------------------------\nList of users registered in Library 📗:\n-------------------------")
-        for index, user_info in enumerate(users, start=1):
-            all_books = ", ".join(user_info['BookInHand']) if user_info['BookInHand'] else "Nothing"
-            print(f"UserID: {user_info['UserID']}\nName: {user_info['Name']}\nBooksInHand: {all_books}\n-------------------------")
+        for _, user_info in enumerate(users, start=1):
+            print(f"UserID: {user_info['UserID']}\nName: {user_info['Name']}\nBooksInHand: {user_info['BookInHand']}\n-------------------------")
 
     def add_user(self, name: str, user_id: str) -> None:
         """
@@ -81,12 +80,13 @@ class UserDatabase:
             if not user_id:
                 raise ValueError("User ID cannot be empty")
             if self._users and str(user_id) in [entry['UserID'] for entry in self.get_users()]:
-                raise ValueError("User ID already exists in database.")
+                raise ValueError("UserID already exists in database.")
             if self._users and int(user_id) in [int(entry['UserID']) for entry in self.get_users()]:
-                raise ValueError("User ID already exists in database.")
-            # if self._storage.users_exist and 
+                raise ValueError("UserID already exists in database.")
+            if self._storage.users_exist and int(user_id) in [int(entry['UserID']) for entry in self.get_users()]:
+                raise ValueError("UserID already exists in database.")
         except ValueError as e:
-            if str(e).strip() == "User ID already exists in database.":
+            if str(e).strip() == "UserID already exists in database.":
                     print(f"\n❌ Error: {e} ❌")
                     self.print_users(self.get_users())
                     
@@ -112,11 +112,12 @@ class UserDatabase:
                     "UserID": user.user_id,
                     "BookInHand": None
                 })
-        if self._users and self._storage.users_exist():
+        if self._storage.users_exist():
             users_path = self._storage.users_filepath
             loaded_users_data = self._storage.load_data(users_path)
             if loaded_users_data:
                 user_data.extend(loaded_users_data)
+        
         return user_data
 
 # Global instance of UserDatabase
