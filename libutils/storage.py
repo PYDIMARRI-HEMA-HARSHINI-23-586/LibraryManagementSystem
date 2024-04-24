@@ -72,6 +72,7 @@ class Storage:
                     if os.path.getsize(filepath) == 0:
                         writer.writeheader()
                     writer.writerows(new_records)
+                print(f"\nUpdated {filepath} Successfully ✅\n")
                 return True
             
 
@@ -89,6 +90,7 @@ class Storage:
                     for record in data:
                         record['timestamp'] = current_time
                         writer.writerow(record)
+            return True
 
     def load_data(self, filepath: str) -> List[Dict[str, str]]:
         """
