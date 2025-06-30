@@ -41,7 +41,7 @@ class LibraryManagementSystem:
         Returns:
             str: The user's choice.
         """
-        print(f"\n-------------------------------\n🏛️ Library Management System 🏛️\n-------------------------------")
+        print("\n-------------------------------\n🏛️ Library Management System 🏛️\n-------------------------------")
         print("1. 🆕 Add Book")
         print("2. 📚 List Books")
         print("3. 🆕 Add User")
@@ -66,7 +66,7 @@ class LibraryManagementSystem:
         """
         formatted_isbn = format_isbn(isbn)
         if not formatted_isbn:
-            print(f"\n❌ Error: Invalid ISBN ❌")
+            print("\n❌ Error: Invalid ISBN ❌")
             print("Valid ISBN example: 978-0-123456-78-9")
             return
 
