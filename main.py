@@ -7,6 +7,16 @@ from book_management import BookManagement
 from user_management import UserManagement
 from checkout_management import CheckoutManagement
 from libutils.storage import Storage
+import re
+
+def format_isbn(isbn):
+    # Remove non-digit characters
+    digits = re.sub(r'\D', '', isbn)
+    if len(digits) != 13:
+        return None
+    return f"{digits[0:3]}-{digits[3]}-{digits[4:10]}-{digits[10:12]}-{digits[12]}"
+
+
 
 class LibraryManagementSystem:
     def __init__(self):
@@ -39,27 +49,39 @@ class LibraryManagementSystem:
         print("5. ✅ Checkout Book")
         print("6. ⛔ Exit")
         return input("Enter choice: ")
+    
+  
+
+    
+
 
     def add_book(self, title: str, author: str, isbn: str) -> None:
-            """
-            Adds a book to the library.
+        """
+        Adds a book to the library.
 
-            Args:
-                title (str): The title of the book.
-                author (str): The author of the book.
-                isbn (str): The ISBN of the book.
-            """
-            try:
-                self.book_manager.add_book(title, author, isbn)
-            except ValueError as e:
-                if str(e).strip() == "Invalid ISBN":
-                    print(f"\n❌ Error: {e} ❌")
-                    print("Valid ISBN example: 978-0-123456-78-9")
-                elif str(e).strip() == "Book with the same ISBN already exists.":
-                    print(f"\n❌ Error: {e} ❌")
-                    print(self.list_books())
-                else:
-                    print(f"\n❌ Error: {e} ❌")
+        Args:
+            title (str): The title of the book.
+            author (str): The author of the book.
+            isbn (str): The ISBN of the book.
+        """
+        formatted_isbn = format_isbn(isbn)
+        if not formatted_isbn:
+            print(f"\n❌ Error: Invalid ISBN ❌")
+            print("Valid ISBN example: 978-0-123456-78-9")
+            return
+
+        try:
+            self.book_manager.add_book(title, author, formatted_isbn)
+        except ValueError as e:
+            if str(e).strip() == "Invalid ISBN":
+                print(f"\n❌ Error: {e} ❌")
+                print("Valid ISBN example: 978-0-123456-78-9")
+            elif str(e).strip() == "Book with the same ISBN already exists.":
+                print(f"\n❌ Error: {e} ❌")
+                print(self.list_books())
+            else:
+                print(f"\n❌ Error: {e} ❌")
+
 
     def checkout_book(self) -> None:
         """
